@@ -1,0 +1,58 @@
+{
+  "name": "claude-kit",
+  "version": "0.1.0",
+  "description": "Auto-generate a project-aware .claude/ configuration for Claude Code — scans your repo and produces CLAUDE.md, settings, commands, rules, and skills.",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "anthropic",
+    "ai",
+    "config",
+    "config-generator",
+    "scaffold",
+    "cli",
+    "developer-tools"
+  ],
+  "license": "MIT",
+  "author": "Daud Ibraheem Saleem",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daudibraheem/claude-kit.git"
+  },
+  "homepage": "https://github.com/daudibraheem/claude-kit#readme",
+  "bugs": {
+    "url": "https://github.com/daudibraheem/claude-kit/issues"
+  },
+  "type": "module",
+  "bin": {
+    "claude-kit": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "cd ../.. && pnpm -r build"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.36.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "ora": "^8.0.0"
+  },
+  "devDependencies": {
+    "@ccc/ai-generator": "workspace:*",
+    "@ccc/core": "workspace:*",
+    "@ccc/detectors": "workspace:*",
+    "@ccc/templates": "workspace:*",
+    "@types/inquirer": "^9.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.4.0"
+  }
+}

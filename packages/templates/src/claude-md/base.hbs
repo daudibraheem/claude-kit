@@ -1,0 +1,82 @@
+# {{projectName}} — Project Context
+
+## Stack
+{{#each technologies}}
+- **{{this.name}}**{{#if this.version}} v{{this.version}}{{/if}} ({{this.category}})
+{{/each}}
+
+## Package Manager
+- Using **{{packageManager}}** — always use `{{packageManager}}` commands
+
+{{#if hasTypeScript}}
+## TypeScript
+- Strict mode enabled — no `any` types, no `@ts-ignore`
+- Use type inference where possible, explicit types for function signatures
+- Shared types in the common package, not duplicated
+{{/if}}
+
+## Coding Conventions
+{{#if (includes technologies "React")}}
+- Functional components only, hooks for all state management
+- Props interface defined and exported above each component
+{{/if}}
+{{#if (includes technologies "Next.js")}}
+- App Router conventions: page.tsx, layout.tsx, loading.tsx, error.tsx
+- Server Components by default — add 'use client' only when needed
+- Server Actions for mutations
+{{/if}}
+{{#if (includes technologies "Express")}}
+- Route handlers are thin — business logic in service modules
+- Error handling middleware catches all errors
+- Request validation with Zod before processing
+{{/if}}
+{{#if (includes technologies "PostGraphile")}}
+- PostGraphile auto-generates the GraphQL API
+- Custom mutations via SQL functions (SECURITY DEFINER only when needed)
+- Smart tags in .postgraphile.tags.json5 for schema customization
+{{/if}}
+{{#if (includes technologies "Relay")}}
+- Relay fragments co-located with components
+- usePaginationFragment for all lists
+- Optimistic updates for user-initiated mutations
+{{/if}}
+
+## Database
+{{#if (includes technologies "PostgreSQL (pg)")}}
+- Row Level Security on every table
+- Migrations must have up() AND down()
+- EXPLAIN ANALYZE queries touching >10k rows
+- JSONB only for truly schemaless data
+{{/if}}
+{{#if (includes technologies "Redis")}}
+- Redis for caching, sessions, and rate limiting
+- Always set TTL on cached values
+- Use cache-aside pattern, not write-through
+{{/if}}
+
+## Testing
+{{#if (includes technologies "Vitest")}}
+- Vitest for unit and integration tests
+{{/if}}
+{{#if (includes technologies "Jest")}}
+- Jest for unit and integration tests  
+{{/if}}
+{{#if (includes technologies "Playwright")}}
+- Playwright for E2E tests
+{{/if}}
+- Tests live next to source: foo.ts → foo.test.ts
+- Arrange-Act-Assert pattern
+- Mock external services, not your own code
+
+## Commands
+- Install: `{{packageManager}} install`
+- Dev: `{{packageManager}} run dev`
+- Test: `{{packageManager}} test`
+- Build: `{{packageManager}} run build`
+- Lint: `{{packageManager}} run lint`
+
+## Don'ts
+- Never commit .env files
+- Never use `any` type
+- Never push to main directly
+- Never skip tests for "quick fixes"
