@@ -47,10 +47,10 @@
     "ora": "^8.0.0"
   },
   "devDependencies": {
-    "@ccc/ai-generator": "workspace:*",
-    "@ccc/core": "workspace:*",
-    "@ccc/detectors": "workspace:*",
-    "@ccc/templates": "workspace:*",
+    "@claude-kit/ai-generator": "workspace:*",
+    "@claude-kit/core": "workspace:*",
+    "@claude-kit/detectors": "workspace:*",
+    "@claude-kit/templates": "workspace:*",
     "@types/inquirer": "^9.0.0",
     "tsup": "^8.5.1",
     "typescript": "^5.4.0"

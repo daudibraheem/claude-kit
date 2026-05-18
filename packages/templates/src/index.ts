@@ -1,6 +1,6 @@
 import type {
   ScanResult, GeneratedConfig, GeneratedFile, SkillFile, DetectedTech,
-} from "@ccc/core";
+} from "@claude-kit/core";
 import { enrichProject, type ProjectEnrichment } from "./enrich.js";
 
 export async function generateConfig(scan: ScanResult): Promise<GeneratedConfig> {

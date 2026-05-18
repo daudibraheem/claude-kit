@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { Detector, DetectedTech } from "@ccc/core";
+import type { Detector, DetectedTech } from "@claude-kit/core";
 
 const KNOWN_MODULES: Record<string, { name: string; category: DetectedTech["category"] }> = {
   "github.com/gin-gonic/gin": { name: "Gin", category: "framework" },

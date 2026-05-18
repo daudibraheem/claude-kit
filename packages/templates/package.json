@@ -1,5 +1,5 @@
 {
-  "name": "@ccc/templates",
+  "name": "@claude-kit/templates",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",
@@ -8,7 +8,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@ccc/core": "workspace:*"
+    "@claude-kit/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^25.7.0",

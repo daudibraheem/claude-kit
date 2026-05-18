@@ -1,5 +1,5 @@
 {
-  "name": "@ccc/detectors",
+  "name": "@claude-kit/detectors",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@ccc/core": "workspace:*",
+    "@claude-kit/core": "workspace:*",
     "glob": "^13.0.6",
     "js-yaml": "^4.1.1"
   },

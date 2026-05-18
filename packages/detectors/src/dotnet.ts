@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { glob } from "glob";
-import type { Detector, DetectedTech } from "@ccc/core";
+import type { Detector, DetectedTech } from "@claude-kit/core";
 
 const KNOWN_PACKAGES: Record<string, { name: string; category: DetectedTech["category"] }> = {
   // ASP.NET

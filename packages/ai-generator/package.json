@@ -1,5 +1,5 @@
 {
-  "name": "@ccc/ai-generator",
+  "name": "@claude-kit/ai-generator",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.0",
-    "@ccc/core": "workspace:*"
+    "@claude-kit/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

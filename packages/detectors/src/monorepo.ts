@@ -1,6 +1,6 @@
 import { readFile, access } from "node:fs/promises";
 import { join } from "node:path";
-import type { Detector, DetectedTech } from "@ccc/core";
+import type { Detector, DetectedTech } from "@claude-kit/core";
 
 export const monorepoDetector: Detector = {
   name: "monorepo",

@@ -27,7 +27,7 @@ import { monorepoDetector } from "./monorepo.js";
 import { javaDetector } from "./java.js";
 import { dotnetDetector } from "./dotnet.js";
 import { rubyDetector } from "./ruby.js";
-import type { Detector } from "@ccc/core";
+import type { Detector } from "@claude-kit/core";
 
 export const allDetectors: Detector[] = [
   packageJsonDetector,

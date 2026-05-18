@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { Detector, DetectedTech } from "@ccc/core";
+import type { Detector, DetectedTech } from "@claude-kit/core";
 
 /**
  * Known packages mapped to their technology info.

@@ -1,9 +1,9 @@
 import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
-import { scanProject } from "@ccc/detectors";
-import { generateConfig } from "@ccc/templates";
-import { generateConfigWithAI } from "@ccc/ai-generator";
+import { scanProject } from "@claude-kit/detectors";
+import { generateConfig } from "@claude-kit/templates";
+import { generateConfigWithAI } from "@claude-kit/ai-generator";
 import { writeConfig } from "./writer.js";
 import { showScanResults } from "./display.js";
 

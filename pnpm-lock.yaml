@@ -17,7 +17,7 @@ importers:
       '@anthropic-ai/sdk':
         specifier: ^0.36.0
         version: 0.36.3
-      '@ccc/core':
+      '@claude-kit/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -46,16 +46,16 @@ importers:
         specifier: ^8.0.0
         version: 8.2.0
     devDependencies:
-      '@ccc/ai-generator':
+      '@claude-kit/ai-generator':
         specifier: workspace:*
         version: link:../ai-generator
-      '@ccc/core':
+      '@claude-kit/core':
         specifier: workspace:*
         version: link:../core
-      '@ccc/detectors':
+      '@claude-kit/detectors':
         specifier: workspace:*
         version: link:../detectors
-      '@ccc/templates':
+      '@claude-kit/templates':
         specifier: workspace:*
         version: link:../templates
       '@types/inquirer':
@@ -76,7 +76,7 @@ importers:
 
   packages/detectors:
     dependencies:
-      '@ccc/core':
+      '@claude-kit/core':
         specifier: workspace:*
         version: link:../core
       glob:
@@ -101,7 +101,7 @@ importers:
 
   packages/templates:
     dependencies:
-      '@ccc/core':
+      '@claude-kit/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import type { ScanResult, DetectedTech, TechCategory } from "@ccc/core";
+import type { ScanResult, DetectedTech, TechCategory } from "@claude-kit/core";
 
 const CATEGORY_LABEL: Record<TechCategory, string> = {
   language:  "Languages",

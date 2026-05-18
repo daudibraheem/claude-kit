@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { rm } from "node:fs/promises";
 import { buildProjectContext } from "../context-builder.js";
-import type { ScanResult } from "@ccc/core";
+import type { ScanResult } from "@claude-kit/core";
 
 function makeScan(projectPath: string): ScanResult {
   return {

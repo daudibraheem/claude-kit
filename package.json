@@ -1,12 +1,12 @@
 {
-  "name": "create-claude-config",
+  "name": "claude-kit-workspace",
   "private": true,
   "packageManager": "pnpm@11.1.1",
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
-    "dev": "pnpm --filter @ccc/cli dev"
+    "dev": "pnpm --filter @claude-kit/cli dev"
   },
   "devDependencies": {
     "tsup": "^8.5.1"

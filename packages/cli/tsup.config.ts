@@ -9,6 +9,6 @@ export default defineConfig({
   // Adds `#!/usr/bin/env node` so npm can run dist/index.js as a binary.
   banner: { js: "#!/usr/bin/env node" },
   // Inline our internal workspace packages into the output so the published
-  // tarball doesn't depend on @ccc/* (which only exist inside this monorepo).
+  // tarball doesn't depend on @claude-kit/* (which only exist inside this monorepo).
   noExternal: [/^@ccc\//],
 });

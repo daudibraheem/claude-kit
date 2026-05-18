@@ -1,4 +1,4 @@
-import type { ScanResult, GeneratedConfig, GeneratedFile, SkillFile } from "@ccc/core";
+import type { ScanResult, GeneratedConfig, GeneratedFile, SkillFile } from "@claude-kit/core";
 
 /**
  * Parse the raw text response from Claude into a GeneratedConfig.
