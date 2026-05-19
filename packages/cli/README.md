@@ -1,4 +1,4 @@
-# claude-kit
+# claude-scout
 
 Auto-generate a project-aware `.claude/` configuration for [Claude Code](https://claude.ai/code).
 
@@ -13,7 +13,7 @@ Scans your repository — detects the tech stack, reads `README`, `package.json`
 ## Quick start
 
 ```bash
-npx claude-kit init
+npx claude-scout init
 ```
 
 That runs in the current directory, scans it, and writes the `.claude/` folder.
@@ -23,7 +23,7 @@ That runs in the current directory, scans it, and writes the `.claude/` folder.
 ### Template mode (default)
 
 ```bash
-npx claude-kit init
+npx claude-scout init
 ```
 
 Fast, fully local, no AI. Reads your `README`, `package.json` scripts, `.env.example`, schema files, and top-level folders, and produces a config grounded in those real values.
@@ -31,7 +31,7 @@ Fast, fully local, no AI. Reads your `README`, `package.json` scripts, `.env.exa
 ### AI mode
 
 ```bash
-npx claude-kit init --ai
+npx claude-scout init --ai
 ```
 
 Uses Claude to autonomously scan your project and generate a deeper, more project-specific config. Requires **one of**:
@@ -53,7 +53,7 @@ Takes 30–90 seconds. Produces richer content because Claude reads the actual c
 ## Scan a project without writing
 
 ```bash
-npx claude-kit scan
+npx claude-scout scan
 ```
 
 Prints the detected tech stack and exits. Useful for checking what the tool sees before generating.

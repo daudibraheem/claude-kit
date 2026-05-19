@@ -1,5 +1,5 @@
 {
-  "name": "claude-kit",
+  "name": "claude-scout",
   "version": "0.1.0",
   "description": "Auto-generate a project-aware .claude/ configuration for Claude Code — scans your repo and produces CLAUDE.md, settings, commands, rules, and skills.",
   "keywords": [
@@ -25,7 +25,7 @@
   },
   "type": "module",
   "bin": {
-    "claude-kit": "dist/index.js"
+    "claude-scout": "dist/index.js"
   },
   "files": [
     "dist",

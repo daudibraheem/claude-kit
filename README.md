@@ -1,18 +1,18 @@
-# claude-kit
+# claude-scout
 
 Auto-generate a `.claude/` configuration folder for any software project. Scans your stack and produces a tailored [Claude Code](https://claude.ai/code) setup — including `CLAUDE.md`, settings, slash commands, coding rules, and reusable skills.
 
 ## Quick start
 
 ```bash
-npx claude-kit init
+npx claude-scout init
 ```
 
 Or install globally:
 
 ```bash
-npm install -g claude-kit
-claude-kit init
+npm install -g claude-scout
+claude-scout init
 ```
 
 ## What gets generated
@@ -45,7 +45,7 @@ your-project/
 ### `init` — scan and generate
 
 ```bash
-claude-kit init [options]
+claude-scout init [options]
 ```
 
 | Option | Description |
@@ -58,7 +58,7 @@ claude-kit init [options]
 ### `scan` — inspect detected stack
 
 ```bash
-claude-kit scan --path /your/project
+claude-scout scan --path /your/project
 ```
 
 Prints detected technologies grouped by category, with versions and confidence scores. Useful for verifying what the tool sees before running `init`.
@@ -68,7 +68,7 @@ Prints detected technologies grouped by category, with versions and confidence s
 Without `--ai`, the tool uses your detected tech stack to fill pre-built templates — fast and offline, no API key needed.
 
 ```bash
-claude-kit init --path /your/project
+claude-scout init --path /your/project
 ```
 
 ## AI mode (`--ai`)
@@ -76,7 +76,7 @@ claude-kit init --path /your/project
 With `--ai`, the tool reads your actual source files and asks Claude to generate deeply project-specific config: real table names in rules, real script names in commands, real folder conventions in skills.
 
 ```bash
-claude-kit init --ai
+claude-scout init --ai
 ```
 
 **No API key required if you have Claude Code installed** — it uses your existing login.
@@ -85,7 +85,7 @@ If Claude Code CLI is not installed, set `ANTHROPIC_API_KEY` as a fallback:
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
-claude-kit init --ai
+claude-scout init --ai
 ```
 
 ### Authentication options (AI mode)

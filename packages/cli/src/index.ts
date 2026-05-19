@@ -10,7 +10,7 @@ import { showScanResults } from "./display.js";
 const program = new Command();
 
 program
-  .name("claude-kit")
+  .name("claude-scout")
   .description("Auto-generate .claude/ configuration for your project")
   .version("0.1.0");
 
