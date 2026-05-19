@@ -2,9 +2,9 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { scanProject } from "@claude-scout/detectors";
-import { generateConfig } from "@claude-scout/templates";
-import { generateConfigWithAI } from "@claude-scout/ai-generator";
-import { writeConfig } from "./writer.js";
+import { generateConfig, generateOnboarding } from "@claude-scout/templates";
+import { generateConfigWithAI, generateOnboardingWithAI } from "@claude-scout/ai-generator";
+import { writeConfig, writeOnboarding } from "./writer.js";
 import { showScanResults } from "./display.js";
 
 const program = new Command();
@@ -90,6 +90,79 @@ program
       console.log(chalk.green(`\n✅ .claude/ configuration created! (${mode} mode)\n`));
       written.forEach((f) => console.log(chalk.dim(`  ✓ ${f}`)));
       console.log(chalk.gray("\nReview CLAUDE.md and customize for your team.\n"));
+    }
+  });
+
+program
+  .command("onboard")
+  .description("Generate ONBOARDING.md + setup.sh so new devs can get a working environment in minutes")
+  .option("--path <dir>",  "Project path", process.cwd())
+  .option("--force",       "Overwrite existing ONBOARDING.md / setup.sh")
+  .option("--dry-run",     "Preview files that would be written without writing them")
+  .option("--ai",          "Use Claude to read the project and produce a richer, project-specific guide")
+  .action(async (options) => {
+    const useAI: boolean = options.ai === true;
+
+    console.log(chalk.bold("\n🧭 Generating onboarding guide...\n"));
+
+    const spinner = ora("Analyzing project files").start();
+    const scan = await scanProject(options.path);
+    spinner.succeed(`Found ${scan.technologies.length} technologies`);
+
+    showScanResults(scan);
+
+    let onboarding;
+    if (useAI) {
+      const aiStart = Date.now();
+      let currentPhase = "Starting…";
+      const updateSpinner = () => {
+        const elapsed = Math.round((Date.now() - aiStart) / 1000);
+        spinner.text = `${currentPhase} (${elapsed}s)`;
+      };
+
+      spinner.start("Starting…");
+      const ticker = setInterval(updateSpinner, 1000);
+
+      try {
+        onboarding = await generateOnboardingWithAI(scan, {
+          onProgress: (msg) => {
+            currentPhase = msg;
+            updateSpinner();
+          },
+        });
+        clearInterval(ticker);
+        const total = Math.round((Date.now() - aiStart) / 1000);
+        spinner.succeed(`Claude generated the onboarding guide (${total}s)`);
+      } catch (err) {
+        clearInterval(ticker);
+        spinner.fail("AI generation failed");
+        console.error(chalk.red("\n" + (err as Error).message));
+        console.log(chalk.gray("\nFalling back to template mode...\n"));
+        onboarding = await generateOnboarding(scan);
+      }
+    } else {
+      spinner.start("Generating onboarding guide");
+      onboarding = await generateOnboarding(scan);
+      spinner.succeed("Onboarding guide generated");
+    }
+
+    if (options.dryRun) {
+      console.log(chalk.yellow("\n📋 Dry run — files that would be written:\n"));
+      console.log(chalk.gray("  ONBOARDING.md"));
+      console.log(chalk.gray("  setup.sh  (executable)"));
+      console.log();
+      console.log(chalk.dim("Preview — first 20 lines of ONBOARDING.md:"));
+      console.log(chalk.dim("──────────────────────────────────────────"));
+      onboarding.markdown.split("\n").slice(0, 20).forEach((l: string) => console.log(chalk.dim(l)));
+      console.log(chalk.dim("──────────────────────────────────────────\n"));
+    } else {
+      const { written } = await writeOnboarding(options.path, onboarding, options.force);
+      const mode = useAI ? "Claude Opus" : "template";
+      console.log(chalk.green(`\n✅ Onboarding guide created! (${mode} mode)\n`));
+      written.forEach((f) => console.log(chalk.dim(`  ✓ ${f}`)));
+      console.log(chalk.gray("\nNew developers can now run:"));
+      console.log(chalk.cyan("  ./setup.sh"));
+      console.log(chalk.gray("…or read ONBOARDING.md for the step-by-step walkthrough.\n"));
     }
   });
 

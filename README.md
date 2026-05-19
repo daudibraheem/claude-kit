@@ -55,6 +55,38 @@ claude-scout init [options]
 | `--force` | Overwrite an existing `.claude/` folder |
 | `--dry-run` | Preview files without writing anything |
 
+### `onboard` — generate a developer onboarding guide
+
+```bash
+claude-scout onboard [options]
+```
+
+Generates two files at the project root so new developers can get a working environment in minutes:
+
+- **`ONBOARDING.md`** — step-by-step walkthrough: prerequisites, install, env vars, services, migrations, run/test/build commands, project layout, and troubleshooting.
+- **`setup.sh`** — re-runnable bash script that checks prereqs, installs dependencies, copies `.env.example` → `.env`, starts Docker services, runs migrations, and verifies the build.
+
+```bash
+# Generate from the detected stack (fast, offline)
+claude-scout onboard
+
+# Use Claude to read your project and produce a richer, project-specific guide
+claude-scout onboard --ai
+```
+
+| Option | Description |
+|--------|-------------|
+| `--path <dir>` | Project to scan (default: current directory) |
+| `--ai` | Use Claude to read source files and produce a project-specific guide |
+| `--force` | Overwrite existing `ONBOARDING.md` / `setup.sh` |
+| `--dry-run` | Preview what would be written, no files touched |
+
+A new developer can then onboard with a single command:
+
+```bash
+git clone <repo> && cd <repo> && ./setup.sh
+```
+
 ### `scan` — inspect detected stack
 
 ```bash

@@ -1,7 +1,7 @@
 {
   "name": "claude-scout",
-  "version": "0.1.0",
-  "description": "Auto-generate a project-aware .claude/ configuration for Claude Code — scans your repo and produces CLAUDE.md, settings, commands, rules, and skills.",
+  "version": "0.2.0",
+  "description": "Auto-generate a project-aware .claude/ configuration and developer onboarding guide for Claude Code — scans your repo and produces CLAUDE.md, settings, commands, rules, skills, and ONBOARDING.md + setup.sh.",
   "keywords": [
     "claude",
     "claude-code",
@@ -9,6 +9,8 @@
     "ai",
     "config",
     "config-generator",
+    "onboarding",
+    "developer-onboarding",
     "scaffold",
     "cli",
     "developer-tools"

@@ -17,6 +17,10 @@ export interface ProjectEnrichment {
   topFolders: Array<{ name: string; hint: string }>;
   /** Whether a CLAUDE.md already exists at the root (we won't overwrite content suggestions) */
   hasExistingClaudeMd: boolean;
+  /** A migrations/ or db/migrations/ directory exists — DB has migrations even if no ORM was detected */
+  hasMigrations: boolean;
+  /** A .nvmrc file exists — surface `nvm use` in onboarding */
+  hasNvmrc: boolean;
 }
 
 const FOLDER_HINTS: Record<string, string> = {
@@ -73,13 +77,18 @@ const FOLDER_HINTS: Record<string, string> = {
 
 export async function enrichProject(scan: ScanResult): Promise<ProjectEnrichment> {
   const root = scan.projectPath;
-  const [readmeSummary, pkg, envVars, dbModels, topFolders, hasExistingClaudeMd] = await Promise.all([
+  const [
+    readmeSummary, pkg, envVars, dbModels, topFolders,
+    hasExistingClaudeMd, hasMigrations, hasNvmrc,
+  ] = await Promise.all([
     readReadmeSummary(root),
     readPackageJson(root),
     readEnvExample(root),
     findSchemaModels(root, scan),
     listTopFolders(root),
     fileExists(join(root, "CLAUDE.md")),
+    detectMigrationsDir(root),
+    fileExists(join(root, ".nvmrc")),
   ]);
 
   return {
@@ -90,7 +99,20 @@ export async function enrichProject(scan: ScanResult): Promise<ProjectEnrichment
     dbModels,
     topFolders,
     hasExistingClaudeMd,
+    hasMigrations,
+    hasNvmrc,
   };
+}
+
+async function detectMigrationsDir(root: string): Promise<boolean> {
+  const candidates = ["migrations", "migration", "db/migrations", "src/migrations", "alembic/versions"];
+  for (const path of candidates) {
+    try {
+      const s = await stat(join(root, path));
+      if (s.isDirectory()) return true;
+    } catch { /* not present */ }
+  }
+  return false;
 }
 
 // ─── README ───────────────────────────────────────────────────────────────────
@@ -101,13 +123,13 @@ async function readReadmeSummary(root: string): Promise<string | undefined> {
     const raw = await tryRead(join(root, name));
     if (!raw) continue;
 
-    // Skip badges, heading, blank lines — find the first real paragraph
+    // Skip badges, heading, blank lines — find the first real content block
     const lines = raw.split(/\r?\n/);
-    let paragraph: string[] = [];
+    const block: string[] = [];
     for (const line of lines) {
       const trimmed = line.trim();
       if (!trimmed) {
-        if (paragraph.length > 0) break;
+        if (block.length > 0) break;
         continue;
       }
       if (trimmed.startsWith("#")) continue;          // headings
@@ -115,15 +137,24 @@ async function readReadmeSummary(root: string): Promise<string | undefined> {
       if (trimmed.startsWith("[![")) continue;        // badge with link
       if (/^[-_=*]{3,}$/.test(trimmed)) continue;     // hrules
       if (trimmed.startsWith("```")) continue;        // code fences
-      paragraph.push(trimmed);
-      if (paragraph.join(" ").length > 280) break;
+      block.push(trimmed);
+      if (block.join(" ").length > 500) break;
     }
 
-    if (paragraph.length > 0) {
-      let summary = paragraph.join(" ").replace(/\s+/g, " ").trim();
-      if (summary.length > 350) summary = summary.slice(0, 347).trimEnd() + "…";
-      return summary;
+    if (block.length === 0) continue;
+
+    // If the block is a bullet list (every line starts with -, *, or a digit.),
+    // keep it as a list so it stays readable in onboarding/CLAUDE.md.
+    // Otherwise collapse into a single paragraph (legacy behavior).
+    const isBulletList = block.every((l) => /^([-*]\s+|\d+\.\s+)/.test(l));
+    if (isBulletList) {
+      const normalized = block.map((l) => l.replace(/^\d+\.\s+/, "- ").replace(/^\*\s+/, "- "));
+      return normalized.join("\n");
     }
+
+    let summary = block.join(" ").replace(/\s+/g, " ").trim();
+    if (summary.length > 350) summary = summary.slice(0, 347).trimEnd() + "…";
+    return summary;
   }
   return undefined;
 }

@@ -5,6 +5,9 @@ import type { ScanResult, GeneratedConfig } from "@claude-scout/core";
 import { collectProjectFiles, type ProjectFile } from "./file-reader.js";
 import { parseConfigResponse } from "./parse.js";
 
+export { generateOnboardingWithAI } from "./onboarding.js";
+export type { GeneratedOnboarding } from "./onboarding.js";
+
 export async function generateConfigWithAI(
   scan: ScanResult,
   options: { verbose?: boolean; onProgress?: (msg: string) => void } = {},

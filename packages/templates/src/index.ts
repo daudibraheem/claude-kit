@@ -3,6 +3,9 @@ import type {
 } from "@claude-scout/core";
 import { enrichProject, type ProjectEnrichment } from "./enrich.js";
 
+export { generateOnboarding } from "./onboarding.js";
+export type { GeneratedOnboarding } from "./onboarding.js";
+
 export async function generateConfig(scan: ScanResult): Promise<GeneratedConfig> {
   const enrichment = await enrichProject(scan);
   return {

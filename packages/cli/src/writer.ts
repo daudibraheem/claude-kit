@@ -1,6 +1,7 @@
-import { mkdir, writeFile, access, appendFile, readFile } from "node:fs/promises";
+import { mkdir, writeFile, access, appendFile, readFile, chmod } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import type { GeneratedConfig } from "@claude-scout/core";
+import type { GeneratedOnboarding } from "@claude-scout/templates";
 
 /**
  * Write the full .claude/ folder structure.
@@ -64,6 +65,36 @@ export async function writeConfig(
 
 export interface WriteSummary {
   written: string[];
+}
+
+/**
+ * Write ONBOARDING.md + setup.sh at the project root.
+ * setup.sh is marked executable (chmod 0755).
+ */
+export async function writeOnboarding(
+  projectPath: string,
+  onboarding: GeneratedOnboarding,
+  force: boolean,
+): Promise<WriteSummary> {
+  const mdPath = join(projectPath, "ONBOARDING.md");
+  const shPath = join(projectPath, "setup.sh");
+
+  if (!force) {
+    const existing: string[] = [];
+    if (await exists(mdPath)) existing.push("ONBOARDING.md");
+    if (await exists(shPath)) existing.push("setup.sh");
+    if (existing.length > 0) {
+      throw new Error(
+        `${existing.join(" and ")} already exist${existing.length > 1 ? "" : "s"} at ${projectPath}. Use --force to overwrite.`,
+      );
+    }
+  }
+
+  await writeUtf8(mdPath, onboarding.markdown);
+  await writeUtf8(shPath, onboarding.script);
+  await chmod(shPath, 0o755);
+
+  return { written: ["ONBOARDING.md", "setup.sh"] };
 }
 
 async function writeUtf8(filePath: string, content: string): Promise<void> {
