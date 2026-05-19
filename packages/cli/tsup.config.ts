@@ -10,5 +10,5 @@ export default defineConfig({
   banner: { js: "#!/usr/bin/env node" },
   // Inline our internal workspace packages into the output so the published
   // tarball doesn't depend on @claude-kit/* (which only exist inside this monorepo).
-  noExternal: [/^@ccc\//],
+  noExternal: [/^@claude-kit\//],
 });
