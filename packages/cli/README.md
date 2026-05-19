@@ -1,8 +1,8 @@
 # claude-scout
 
-Auto-generate a project-aware `.claude/` configuration for [Claude Code](https://claude.ai/code).
+Auto-generate a project-aware `.claude/` configuration **and** a new-developer onboarding kit for [Claude Code](https://claude.ai/code).
 
-Scans your repository — detects the tech stack, reads `README`, `package.json`, `.env.example`, schema files, and folder structure — then produces a complete `.claude/` folder grounded in your actual code:
+Scans your repository — detects the tech stack, reads `README`, `package.json`, `.env.example`, schema files, `.nvmrc`, `migrations/`, and folder structure — then produces a complete `.claude/` folder grounded in your actual code:
 
 - `CLAUDE.md` — project overview, architecture, real commands, conventions
 - `.claude/settings.json` — sensible permission allowlist for your stack
@@ -10,13 +10,22 @@ Scans your repository — detects the tech stack, reads `README`, `package.json`
 - `.claude/rules/*.md` — coding rules per concern (TypeScript, database, frontend, API…)
 - `.claude/skills/*/SKILL.md` — reusable workflows (add-feature, debug, write-tests, refactor)
 
+…and, with `claude-scout onboard`, a human-readable onboarding guide:
+
+- `ONBOARDING.md` — step-by-step setup walkthrough (prereqs, env vars, services, migrations, run/test/build, troubleshooting)
+- `setup.sh` — re-runnable bash script that gets a new dev from clone to running app
+
 ## Quick start
 
 ```bash
+# Generate .claude/ config for Claude Code
 npx claude-scout init
+
+# Generate ONBOARDING.md + setup.sh for new developers
+npx claude-scout onboard
 ```
 
-That runs in the current directory, scans it, and writes the `.claude/` folder.
+Each command runs in the current directory and writes its outputs to the project root.
 
 ## Modes
 
@@ -49,6 +58,21 @@ Takes 30–90 seconds. Produces richer content because Claude reads the actual c
 | `--ai` | Use Claude to generate the config (see AI mode above) |
 | `--dry-run` | Print the files that would be written without writing them |
 | `--force` | Overwrite an existing `.claude/` folder |
+
+## Onboard a new developer
+
+```bash
+npx claude-scout onboard           # template mode (fast, offline)
+npx claude-scout onboard --ai      # richer, project-specific guide via Claude
+```
+
+Generates `ONBOARDING.md` and an executable `setup.sh` at the project root. A new dev can then run:
+
+```bash
+git clone <repo> && cd <repo> && ./setup.sh
+```
+
+…and `setup.sh` checks prerequisites, installs dependencies, copies `.env.example` → `.env`, starts Docker services (if any), runs migrations, and verifies the build.
 
 ## Scan a project without writing
 

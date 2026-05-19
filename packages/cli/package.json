@@ -19,7 +19,7 @@
   "author": "Daud Ibraheem Saleem",
   "repository": {
     "type": "git",
-    "url": "https://github.com/daudibraheem/claude-scout.git"
+    "url": "git+https://github.com/daudibraheem/claude-scout.git"
   },
   "homepage": "https://github.com/daudibraheem/claude-scout#readme",
   "bugs": {
