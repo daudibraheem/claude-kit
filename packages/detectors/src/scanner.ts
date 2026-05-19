@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join, basename } from "node:path";
-import type { ScanResult, DetectedTech } from "@claude-kit/core";
+import type { ScanResult, DetectedTech } from "@claude-scout/core";
 import { allDetectors } from "./index.js";
 
 export async function scanProject(projectPath: string): Promise<ScanResult> {

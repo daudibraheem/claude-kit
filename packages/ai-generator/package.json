@@ -1,5 +1,5 @@
 {
-  "name": "@claude-kit/ai-generator",
+  "name": "@claude-scout/ai-generator",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.0",
-    "@claude-kit/core": "workspace:*"
+    "@claude-scout/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

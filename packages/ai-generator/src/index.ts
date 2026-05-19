@@ -1,7 +1,7 @@
 import { execSync, spawn } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import Anthropic from "@anthropic-ai/sdk";
-import type { ScanResult, GeneratedConfig } from "@claude-kit/core";
+import type { ScanResult, GeneratedConfig } from "@claude-scout/core";
 import { collectProjectFiles, type ProjectFile } from "./file-reader.js";
 import { parseConfigResponse } from "./parse.js";
 

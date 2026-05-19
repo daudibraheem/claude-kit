@@ -1,6 +1,6 @@
 import { readFile, readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
-import type { ScanResult } from "@claude-kit/core";
+import type { ScanResult } from "@claude-scout/core";
 
 export interface ProjectEnrichment {
   /** First non-heading paragraph from README, if any */

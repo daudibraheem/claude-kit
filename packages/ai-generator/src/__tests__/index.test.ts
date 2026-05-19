@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { parseConfigResponse, fallbackClaudeMd, defaultSettings } from "../parse.js";
-import type { ScanResult } from "@claude-kit/core";
+import type { ScanResult } from "@claude-scout/core";
 
 const mockScan: ScanResult = {
   projectName: "my-app",

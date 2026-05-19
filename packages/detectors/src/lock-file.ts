@@ -1,6 +1,6 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
-import type { Detector, DetectedTech } from "@claude-kit/core";
+import type { Detector, DetectedTech } from "@claude-scout/core";
 
 const LOCK_FILES: Array<{
   file: string;

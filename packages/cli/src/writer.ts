@@ -1,6 +1,6 @@
 import { mkdir, writeFile, access, appendFile, readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
-import type { GeneratedConfig } from "@claude-kit/core";
+import type { GeneratedConfig } from "@claude-scout/core";
 
 /**
  * Write the full .claude/ folder structure.

@@ -1,5 +1,5 @@
 {
-  "name": "@claude-kit/detectors",
+  "name": "@claude-scout/detectors",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@claude-kit/core": "workspace:*",
+    "@claude-scout/core": "workspace:*",
     "glob": "^13.0.6",
     "js-yaml": "^4.1.1"
   },

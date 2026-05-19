@@ -1,7 +1,7 @@
 import { readFile, readdir, stat } from "node:fs/promises";
 import type { Dirent } from "node:fs";
 import { join, extname, relative } from "node:path";
-import type { ScanResult } from "@claude-kit/core";
+import type { ScanResult } from "@claude-scout/core";
 
 export interface ProjectFile {
   path: string;   // relative to project root

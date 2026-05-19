@@ -2,7 +2,7 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import type { Dirent } from "node:fs";
 import { join, relative } from "node:path";
 import { glob } from "glob";
-import type { ScanResult, ProjectContext } from "@claude-kit/core";
+import type { ScanResult, ProjectContext } from "@claude-scout/core";
 
 const IGNORE_DIRS = new Set([
   "node_modules", ".git", "dist", "build", ".next", ".nuxt", "out",

@@ -17,11 +17,11 @@
   "author": "Daud Ibraheem Saleem",
   "repository": {
     "type": "git",
-    "url": "https://github.com/daudibraheem/claude-kit.git"
+    "url": "https://github.com/daudibraheem/claude-scout.git"
   },
-  "homepage": "https://github.com/daudibraheem/claude-kit#readme",
+  "homepage": "https://github.com/daudibraheem/claude-scout#readme",
   "bugs": {
-    "url": "https://github.com/daudibraheem/claude-kit/issues"
+    "url": "https://github.com/daudibraheem/claude-scout/issues"
   },
   "type": "module",
   "bin": {
@@ -47,10 +47,10 @@
     "ora": "^8.0.0"
   },
   "devDependencies": {
-    "@claude-kit/ai-generator": "workspace:*",
-    "@claude-kit/core": "workspace:*",
-    "@claude-kit/detectors": "workspace:*",
-    "@claude-kit/templates": "workspace:*",
+    "@claude-scout/ai-generator": "workspace:*",
+    "@claude-scout/core": "workspace:*",
+    "@claude-scout/detectors": "workspace:*",
+    "@claude-scout/templates": "workspace:*",
     "@types/inquirer": "^9.0.0",
     "tsup": "^8.5.1",
     "typescript": "^5.4.0"
