@@ -8,6 +8,9 @@ import { parseConfigResponse } from "./parse.js";
 export { generateOnboardingWithAI } from "./onboarding.js";
 export type { GeneratedOnboarding } from "./onboarding.js";
 
+export { askClaude } from "./ask.js";
+export type { AskOptions } from "./ask.js";
+
 export async function generateConfigWithAI(
   scan: ScanResult,
   options: { verbose?: boolean; onProgress?: (msg: string) => void } = {},

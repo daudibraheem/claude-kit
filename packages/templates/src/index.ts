@@ -6,6 +6,15 @@ import { enrichProject, type ProjectEnrichment } from "./enrich.js";
 export { generateOnboarding } from "./onboarding.js";
 export type { GeneratedOnboarding } from "./onboarding.js";
 
+export { generateCi } from "./ci.js";
+export type { GeneratedCi } from "./ci.js";
+
+export { generateMigration } from "./migration.js";
+export type { GeneratedMigration, MigrationOptions } from "./migration.js";
+
+export { generateTestStub, findUntested } from "./tests.js";
+export type { TestStub, UntestedFile } from "./tests.js";
+
 export async function generateConfig(scan: ScanResult): Promise<GeneratedConfig> {
   const enrichment = await enrichProject(scan);
   return {

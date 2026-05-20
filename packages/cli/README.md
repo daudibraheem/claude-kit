@@ -74,6 +74,64 @@ git clone <repo> && cd <repo> && ./setup.sh
 
 …and `setup.sh` checks prerequisites, installs dependencies, copies `.env.example` → `.env`, starts Docker services (if any), runs migrations, and verifies the build.
 
+## Day-to-day productivity commands (new in 0.3.0)
+
+### `commit` — generate a commit message from your staged diff
+
+```bash
+git add <files>
+npx claude-scout commit            # preview the message
+npx claude-scout commit --yes      # commit immediately
+```
+
+Reads recent commits to match your repo's style. Won't invent ticket numbers or co-authors.
+
+### `pr` — generate a PR title + body from your branch diff
+
+```bash
+npx claude-scout pr                # print title + body
+npx claude-scout pr --gh           # also run `gh pr create`
+```
+
+Reads `<base>...HEAD` and the branch's commits, produces a title + Summary / Notable changes / Test plan.
+
+### `test` — scaffold tests for source files that don't have one
+
+```bash
+npx claude-scout test              # scaffold stubs for every untested file
+npx claude-scout test --new        # only files added/modified on this branch
+npx claude-scout test src/foo.ts   # target a single file
+npx claude-scout test --ai         # let Claude write real tests instead of stubs
+```
+
+Detects Vitest/Jest/pytest/Go test from your scan and emits the right shape.
+
+### `ci` — generate a GitHub Actions workflow for the detected stack
+
+```bash
+npx claude-scout ci                # writes .github/workflows/ci.yml
+npx claude-scout ci --dry-run      # preview without writing
+```
+
+Includes service containers (Postgres / MySQL / Redis) when those databases are detected.
+
+### `migration "<intent>"` — scaffold a migration file
+
+```bash
+npx claude-scout migration "add user deleted_at column"
+```
+
+Detects Prisma / Drizzle / TypeORM / Alembic / Sequelize / graphile-migrate and writes the file in the right place with the right shape.
+
+### `install-hooks` — auto-suggest commit messages, flag missing tests
+
+```bash
+npx claude-scout install-hooks            # install
+npx claude-scout install-hooks --uninstall
+```
+
+Installs two non-blocking git hooks: `prepare-commit-msg` pre-fills the buffer with a Claude-generated suggestion if you leave it empty, `pre-commit` warns when new source files lack a companion test.
+
 ## Scan a project without writing
 
 ```bash

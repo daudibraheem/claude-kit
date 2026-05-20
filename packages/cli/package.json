@@ -1,7 +1,7 @@
 {
   "name": "claude-scout",
-  "version": "0.2.0",
-  "description": "Auto-generate a project-aware .claude/ configuration and developer onboarding guide for Claude Code — scans your repo and produces CLAUDE.md, settings, commands, rules, skills, and ONBOARDING.md + setup.sh.",
+  "version": "0.3.0",
+  "description": "Project-aware CLI for Claude Code: generate .claude/ config, ONBOARDING.md + setup.sh, GitHub Actions workflows, ORM-aware migrations, commit messages, PR descriptions, and test scaffolds — all grounded in your real repo.",
   "keywords": [
     "claude",
     "claude-code",
@@ -13,7 +13,13 @@
     "developer-onboarding",
     "scaffold",
     "cli",
-    "developer-tools"
+    "developer-tools",
+    "git-hooks",
+    "commit-message",
+    "pr-description",
+    "test-scaffold",
+    "github-actions",
+    "migration"
   ],
   "license": "MIT",
   "author": "Daud Ibraheem Saleem",

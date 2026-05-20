@@ -87,6 +87,19 @@ A new developer can then onboard with a single command:
 git clone <repo> && cd <repo> && ./setup.sh
 ```
 
+### Productivity commands (0.3.0+)
+
+| Command | What it does |
+|---|---|
+| `claude-scout commit` | Generate a commit message from your staged diff in the repo's style (`--yes` commits immediately) |
+| `claude-scout pr` | Generate a PR title + body from `<base>...HEAD` (`--gh` runs `gh pr create`) |
+| `claude-scout test [--new\|<file>] [--ai]` | Scaffold test files for source files that don't have one |
+| `claude-scout ci` | Generate `.github/workflows/ci.yml` for the detected stack (includes service containers for detected databases) |
+| `claude-scout migration "<intent>"` | Scaffold a migration file in the right place for the detected ORM |
+| `claude-scout install-hooks` | Install non-blocking git hooks: pre-fill empty commit messages, flag new source files without tests |
+
+All commands are template-mode by default. `test`, `commit`, and `pr` use Claude — either via your existing Claude Code login (preferred, no API key) or via `ANTHROPIC_API_KEY`.
+
 ### `scan` — inspect detected stack
 
 ```bash

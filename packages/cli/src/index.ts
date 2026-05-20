@@ -6,6 +6,12 @@ import { generateConfig, generateOnboarding } from "@claude-scout/templates";
 import { generateConfigWithAI, generateOnboardingWithAI } from "@claude-scout/ai-generator";
 import { writeConfig, writeOnboarding } from "./writer.js";
 import { showScanResults } from "./display.js";
+import { registerCi } from "./commands/ci.js";
+import { registerMigration } from "./commands/migration.js";
+import { registerCommit } from "./commands/commit.js";
+import { registerPr } from "./commands/pr.js";
+import { registerTest } from "./commands/test.js";
+import { registerHooks } from "./commands/hooks.js";
 
 const program = new Command();
 
@@ -174,5 +180,13 @@ program
     const scan = await scanProject(options.path);
     showScanResults(scan);
   });
+
+// ─── New 0.3.0 commands ──────────────────────────────────────────────────────
+registerCi(program);
+registerMigration(program);
+registerCommit(program);
+registerPr(program);
+registerTest(program);
+registerHooks(program);
 
 program.parse();
