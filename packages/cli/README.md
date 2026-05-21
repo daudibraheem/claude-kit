@@ -132,6 +132,82 @@ npx claude-scout install-hooks --uninstall
 
 Installs two non-blocking git hooks: `prepare-commit-msg` pre-fills the buffer with a Claude-generated suggestion if you leave it empty, `pre-commit` warns when new source files lack a companion test.
 
+## Comprehension + lifecycle commands (new in 0.4.0)
+
+### `doctor` — diagnose a broken local environment
+
+```bash
+npx claude-scout doctor
+```
+
+Runs every prereq check `setup.sh` does — Node version vs `.nvmrc`, lockfile freshness, Docker daemon reachability, `.env` keys against `.env.example`, database client on PATH — and reports each result with a fix. Exits non-zero on blocking issues so it can run in CI.
+
+### `refresh` — re-generate stale CLAUDE.md / ONBOARDING.md
+
+```bash
+npx claude-scout refresh                  # both files
+npx claude-scout refresh --claude         # only CLAUDE.md
+npx claude-scout refresh --ai             # use Claude for richer content
+```
+
+Re-scans the project, regenerates, and shows a drift summary (line delta, added/removed sections) before asking you to confirm. `--force` skips the prompt.
+
+### `explain <target>` — plain-English summary of a file or directory
+
+```bash
+npx claude-scout explain src/auth/middleware.ts
+npx claude-scout explain packages/worker
+npx claude-scout explain src/foo.ts --short
+```
+
+Returns purpose, key pieces, flow, callers, and watch-outs.
+
+### `why <file>` — why does this code exist?
+
+```bash
+npx claude-scout why src/legacy/billing.ts
+```
+
+Pulls git history and linked merged PRs (if `gh` is available) and asks Claude to summarise origin, evolution, and current purpose.
+
+### `changelog` — generate a CHANGELOG entry from commits
+
+```bash
+npx claude-scout changelog                # preview to stdout
+npx claude-scout changelog --write        # prepend to CHANGELOG.md
+npx claude-scout changelog --ai           # Claude groups + summarises
+```
+
+Parses conventional commits if present; otherwise falls back to a flat bullet list (or `--ai` to have Claude group them).
+
+### `release` — bump version, prepend changelog, tag
+
+```bash
+npx claude-scout release                          # preview only (safe)
+npx claude-scout release --write                  # apply: bump + changelog + commit + tag
+npx claude-scout release --bump major --write     # force the bump kind
+```
+
+Infers patch / minor / major from conventional-commit markers (`feat!:` or `BREAKING CHANGE` → major; `feat:` → minor; otherwise patch). Preview by default — `--write` is the only path to mutation.
+
+### `review` — self-review your branch before opening a PR
+
+```bash
+npx claude-scout review                   # print review
+npx claude-scout review --strict          # exit 1 on "must fix" findings (CI)
+```
+
+Returns three buckets: **Must fix** (blocking), **Should fix** (real concerns), **Nice to have** (style). Useful in pre-PR CI.
+
+### `audit` — light security scan
+
+```bash
+npx claude-scout audit
+npx claude-scout audit --strict           # exit 1 on high-severity findings
+```
+
+Detects committed secrets (AWS, GitHub, Stripe, Slack, OpenAI, Anthropic, private keys), env-var drift (code uses `process.env.X` but `X` isn't in `.env.example`), and SQL string interpolation in JS / Python / Go. Not a replacement for `gitleaks` / `semgrep` — a fast pre-PR sanity check.
+
 ## Scan a project without writing
 
 ```bash

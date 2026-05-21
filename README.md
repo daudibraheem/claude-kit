@@ -87,7 +87,7 @@ A new developer can then onboard with a single command:
 git clone <repo> && cd <repo> && ./setup.sh
 ```
 
-### Productivity commands (0.3.0+)
+### Productivity commands (0.3.0)
 
 | Command | What it does |
 |---|---|
@@ -98,7 +98,20 @@ git clone <repo> && cd <repo> && ./setup.sh
 | `claude-scout migration "<intent>"` | Scaffold a migration file in the right place for the detected ORM |
 | `claude-scout install-hooks` | Install non-blocking git hooks: pre-fill empty commit messages, flag new source files without tests |
 
-All commands are template-mode by default. `test`, `commit`, and `pr` use Claude — either via your existing Claude Code login (preferred, no API key) or via `ANTHROPIC_API_KEY`.
+### Comprehension + lifecycle (0.4.0)
+
+| Command | What it does |
+|---|---|
+| `claude-scout doctor` | Diagnose a broken local environment — runs every onboard prereq check and reports what to fix |
+| `claude-scout refresh [--ai]` | Re-generate CLAUDE.md and ONBOARDING.md against the current state of the project, with a drift summary |
+| `claude-scout explain <target>` | Plain-English summary of a file or directory: purpose, key pieces, flow, callers, watch-outs |
+| `claude-scout why <file>` | Why does this code exist? Pulls git history + linked PRs and summarises |
+| `claude-scout changelog [--write]` | Generate a CHANGELOG.md entry from commits since the last tag |
+| `claude-scout release [--write]` | Bump version, prepend changelog, commit, and tag — preview by default |
+| `claude-scout review [--strict]` | Self-review your branch diff before opening a PR — groups by Must fix / Should fix / Nice to have |
+| `claude-scout audit [--strict]` | Light security scan: committed secrets, env-var drift, SQL injection patterns |
+
+All commands are template-mode by default. Commands that need Claude (`commit`, `pr`, `test --ai`, `explain`, `why`, `changelog --ai`, `review`, `refresh --ai`) use your existing Claude Code login if available, otherwise `ANTHROPIC_API_KEY`.
 
 ### `scan` — inspect detected stack
 

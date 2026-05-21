@@ -12,6 +12,14 @@ import { registerCommit } from "./commands/commit.js";
 import { registerPr } from "./commands/pr.js";
 import { registerTest } from "./commands/test.js";
 import { registerHooks } from "./commands/hooks.js";
+import { registerDoctor } from "./commands/doctor.js";
+import { registerRefresh } from "./commands/refresh.js";
+import { registerExplain } from "./commands/explain.js";
+import { registerWhy } from "./commands/why.js";
+import { registerChangelog } from "./commands/changelog.js";
+import { registerRelease } from "./commands/release.js";
+import { registerReview } from "./commands/review.js";
+import { registerAudit } from "./commands/audit.js";
 
 const program = new Command();
 
@@ -181,12 +189,22 @@ program
     showScanResults(scan);
   });
 
-// ─── New 0.3.0 commands ──────────────────────────────────────────────────────
+// ─── Productivity commands (0.3.0) ──────────────────────────────────────────
 registerCi(program);
 registerMigration(program);
 registerCommit(program);
 registerPr(program);
 registerTest(program);
 registerHooks(program);
+
+// ─── Comprehension + lifecycle commands (0.4.0) ─────────────────────────────
+registerDoctor(program);
+registerRefresh(program);
+registerExplain(program);
+registerWhy(program);
+registerChangelog(program);
+registerRelease(program);
+registerReview(program);
+registerAudit(program);
 
 program.parse();
